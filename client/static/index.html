@@ -1,0 +1,190 @@
+<html ng-app='myApp'>
+
+<head>
+    <script src='http://localhost:8001/bower_components/angular/angular.min.js'></script>
+    <script src="http://localhost:8001/bower_components/angular/angular-route.min.js"></script>
+
+    <script type='text/javascript'>
+        var myAppModule = angular.module('myApp', ['ngRoute']);
+
+        myAppModule.factory('playerFactory', function(){
+            var players = [{
+                name: 'Speros', teamAssigned: 'Seahawks'
+            }, {
+                name: 'Jimmy', teamAssigned: '49ers'
+            }, {
+                name: 'Jay', teamAssigned: ''
+            }];
+
+            var factory = {};
+
+            factory.getPlayers = function(callback) {
+                callback(players);
+            };
+
+            // factory.getAssignment = function(callback) {
+            //     callback(assignments);
+            // };
+
+            return factory;
+        });
+
+        myAppModule.factory('teamFactory', function(){
+            var teams = [{
+                TeamName: 'Seahawks'
+            }, {
+                TeamName: '49ers'
+            }, {
+                TeamName: 'Honeybadgers'
+            }];
+
+            var factory = {};
+
+            factory.getTeams = function(callback) {
+                callback(teams);
+            };
+
+            return factory;
+        });
+
+        // the .controller() method adds a controller to the module
+        myAppModule.config(function($routeProvider){
+            $routeProvider
+            .when('/', {
+                templateUrl: '/partials/players.html'
+            })
+            .when('/Teams', {
+                templateUrl: '/partials/teams.html'
+            })
+            .when('/Associations', {
+                templateUrl: '/partials/assos.html'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+        });
+
+        // the controllers
+
+        myAppModule.controller('Players', function($scope, playerFactory) {
+            console.log("Players controllers in index");
+            $scope.players = [];
+            playerFactory.getPlayers(function(data){
+                $scope.players = data;
+            });
+            console.log('loaded players', $scope.players);
+
+            $scope.addPlayer = function() {
+                // add to the array
+                console.log('new', $scope.newPlayer);
+                $scope.users.push($scope.newPlayer);
+                // clear the form values
+                $scope.newPlayer = {};
+            };
+
+            $scope.deletePlayer = function(player) {
+                console.log($scope.players);
+                // add to the array
+                var deletePlayer = $scope.players.indexOf(play);
+                console.log('delete',deletePlayer);
+                if(~deletePlayer){
+                    console.log("deletePlayer =", deletePlayer );
+                    $scope.players.splice(deletePlayer,1);
+                // clear the form values
+                    $scope.player = {};
+                    console.log($scope.player);
+                }
+            };
+        });
+
+        myAppModule.controller('Teams', function($scope, teamFactory) {
+            console.log("Teams controllers in index");
+            $scope.teams = [];
+            teamFactory.getTeams(function(data){
+                $scope.teams = data;
+            });
+            console.log('loaded teams', $scope.teams);
+
+            $scope.addTeam = function() {
+                // add to the array
+                console.log('new', $scope.newTeam);
+                $scope.users.push($scope.newTeam);
+                // clear the form values
+                $scope.newTeam = {};
+            };
+
+            $scope.deleteTeam = function(team) {
+                console.log($scope.teams);
+                // add to the array
+                var deleteTeam = $scope.teams.indexOf(play);
+                console.log('delete',deleteTeam);
+                if(~deleteTeam){
+                    console.log("deleteTeam =", deleteTeam );
+                    $scope.teams.splice(deleteTeam,1);
+                // clear the form values
+                    $scope.team = {};
+                    console.log($scope.team);
+                }
+            };
+        });
+
+        myAppModule.controller('Associations', function($scope, playerFactory) {
+            console.log("Associations controllers in index");
+            $scope.associations = [];
+            playerFactory.getAssociations(function(data){
+                $scope.associations = data;
+            });
+            console.log('loaded associations', $scope.associations);
+
+            $scope.addAssociation = function() {
+                // add to the array
+                console.log('new', $scope.newAssociation);
+                $scope.users.push($scope.newAssociation);
+                // clear the form values
+                $scope.newAssociation = {};
+            };
+
+            $scope.deleteAssociation = function(association) {
+                console.log($scope.associations);
+                // add to the array
+                var deleteAssociation = $scope.associations.indexOf(play);
+                console.log('delete',deleteAssociation);
+                if(~deleteAssociation){
+                    console.log("deleteAssociation =", deleteAssociation );
+                    $scope.associations.splice(deleteAssociation,1);
+                // clear the form values
+                    $scope.association = {};
+                    console.log($scope.association);
+                }
+            };
+        });
+
+
+
+    </script>
+
+    <style>
+        #userBox {
+            width: 700px;
+            border-style: solid;
+            margin: 1em;
+            padding: 5px;
+        }
+        tr.d0 td {
+	        background-color: #808080; color: black;
+        }
+        tr.d1 td {
+	        background-color: #D3D3D3; color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app='myApp'>
+        <a href="#/">Customize Users</a> | <a href="#/UsersListController">List Users</a>
+        <div ng-view="">
+        </div>
+    </div>
+
+</body>
+</html>
