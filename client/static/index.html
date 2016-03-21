@@ -22,7 +22,11 @@
                 callback(players);
             };
 
-            // factory.getAssignment = function(callback) {
+            // factory.addAssignment = function(callback) {
+            //     callback(assignments);
+            // };
+
+            // factory.deleteAssignment = function(callback) {
             //     callback(assignments);
             // };
 
@@ -164,7 +168,7 @@
     </script>
 
     <style>
-        #userBox {
+        #theBox {
             width: 700px;
             border-style: solid;
             margin: 1em;
@@ -181,7 +185,7 @@
 
 <body>
     <div ng-app='myApp'>
-        <a href="#/">Customize Users</a> | <a href="#/UsersListController">List Users</a>
+        <a href="#/">Players</a> | <a href="#/Teams">Teams</a> | <a href="#/Associations">Associations</a>
         <div ng-view="">
         </div>
     </div>

@@ -1,0 +1,14 @@
+<div ng-controller='Associations' id='theBox'>
+    <h3>Associations Controller</h3>
+    <form>
+        <input type='text' ng-model='Player.name'> <input type='text' ng-model='Team.TeamName'>
+        <input type='submit' value='Assign Player to Team' ng-click='addAssignment(Player.name, Team.TeamName)' style="float: right">
+    </form>
+        <table width="800">
+            <tr><th>Name</th><th>Team</th><th>Actions</th></tr>
+            <tr ng-repeat="player in players" ng-class-odd="'d1'" ng-class-even="'d2'">
+                <td>{{player.name}}</td><td>{{player.teamAssigned}}</td>
+                <td><input type='submit' value='Clear Assignment' ng-click='deleteAssignment(player.name, player.teamAssigned)'</td>
+            </tr>
+        </table>
+</div>
