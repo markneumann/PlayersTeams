@@ -2,7 +2,7 @@
 
 <head>
     <script src='http://localhost:8001/bower_components/angular/angular.min.js'></script>
-    <script src="http://localhost:8001/bower_components/angular/angular-route.min.js"></script>
+    <script src="http://localhost:8001/bower_components/angular-route/angular-route.min.js"></script>
 
     <script type='text/javascript'>
         var myAppModule = angular.module('myApp', ['ngRoute']);
@@ -35,11 +35,11 @@
 
         myAppModule.factory('teamFactory', function(){
             var teams = [{
-                TeamName: 'Seahawks'
+                teamName: 'Seahawks'
             }, {
-                TeamName: '49ers'
+                teamName: '49ers'
             }, {
-                TeamName: 'Honeybadgers'
+                teamName: 'Honeybadgers'
             }];
 
             var factory = {};
@@ -61,7 +61,7 @@
                 templateUrl: '/partials/teams.html'
             })
             .when('/Associations', {
-                templateUrl: '/partials/assos.html'
+                templateUrl: '/partials/associations.html'
             })
             .otherwise({
                 redirectTo: '/'
@@ -81,7 +81,7 @@
             $scope.addPlayer = function() {
                 // add to the array
                 console.log('new', $scope.newPlayer);
-                $scope.users.push($scope.newPlayer);
+                $scope.players.push($scope.newPlayer);
                 // clear the form values
                 $scope.newPlayer = {};
             };
@@ -89,7 +89,7 @@
             $scope.deletePlayer = function(player) {
                 console.log($scope.players);
                 // add to the array
-                var deletePlayer = $scope.players.indexOf(play);
+                var deletePlayer = $scope.players.indexOf(player);
                 console.log('delete',deletePlayer);
                 if(~deletePlayer){
                     console.log("deletePlayer =", deletePlayer );
@@ -112,7 +112,7 @@
             $scope.addTeam = function() {
                 // add to the array
                 console.log('new', $scope.newTeam);
-                $scope.users.push($scope.newTeam);
+                $scope.teams.push($scope.newTeam);
                 // clear the form values
                 $scope.newTeam = {};
             };
@@ -120,7 +120,7 @@
             $scope.deleteTeam = function(team) {
                 console.log($scope.teams);
                 // add to the array
-                var deleteTeam = $scope.teams.indexOf(play);
+                var deleteTeam = $scope.teams.indexOf(team);
                 console.log('delete',deleteTeam);
                 if(~deleteTeam){
                     console.log("deleteTeam =", deleteTeam );
@@ -134,31 +134,33 @@
 
         myAppModule.controller('Associations', function($scope, playerFactory) {
             console.log("Associations controllers in index");
-            $scope.associations = [];
-            playerFactory.getAssociations(function(data){
-                $scope.associations = data;
+            $scope.players = [];
+            //playerFactory.getAssociations(function(data){
+            playerFactory.getPlayers(function(data){
+                $scope.players = data;
             });
-            console.log('loaded associations', $scope.associations);
+            console.log('loaded associations', $scope.players);
 
-            $scope.addAssociation = function() {
+            $scope.addAssignment = function() {
                 // add to the array
-                console.log('new', $scope.newAssociation);
-                $scope.users.push($scope.newAssociation);
-                // clear the form values
-                $scope.newAssociation = {};
+                console.log('new', $scope.assignPlayer, $scope.assignTeam);
+                for (var player in $scope.players) {
+                    console.log("player =", player );
+                    if(player.name == $scope.playerName){
+                        player.teamAssigned = $scope.assignTeam;
+                    }
+                }
+                console.log("players =", $scope.players );
             };
 
-            $scope.deleteAssociation = function(association) {
-                console.log($scope.associations);
-                // add to the array
-                var deleteAssociation = $scope.associations.indexOf(play);
-                console.log('delete',deleteAssociation);
-                if(~deleteAssociation){
-                    console.log("deleteAssociation =", deleteAssociation );
-                    $scope.associations.splice(deleteAssociation,1);
-                // clear the form values
-                    $scope.association = {};
-                    console.log($scope.association);
+            $scope.deleteAssignment = function(player) {
+                console.log('delete',player);
+                // find the player
+                var deleteAssignmentFor = $scope.players.indexOf(player);
+                console.log("deleteAssignmentFor =", deleteAssignmentFor);
+                console.log($scope.players[deleteAssignmentFor].teamAssigned);
+                if(~deleteAssignmentFor){
+                    $scope.players[deleteAssignmentFor].teamAssigned = '';
                 }
             };
         });
@@ -169,7 +171,7 @@
 
     <style>
         #theBox {
-            width: 700px;
+            width: 800px;
             border-style: solid;
             margin: 1em;
             padding: 5px;

@@ -1,13 +1,13 @@
 <div ng-controller='Teams' id='theBox'>
     <h3>Teams Controller</h3>
     <form>
-        Name:        <input type='text' ng-model='newTeam.name'>
+        Name: <input type='text' ng-model='newTeam.teamName'>
         <input type='submit' value='Add Team' ng-click='addTeam()' style="float: right">
     </form>
         <table width="800">
             <tr><th>Team Name</th><th>Actions</th></tr>
             <tr ng-repeat="team in teams" ng-class-odd="'d1'" ng-class-even="'d2'">
-                <td>{{team.TeamName}}</td>
+                <td>{{team.teamName}}</td>
                 <td><input type='submit' value='Remove Team' ng-click='deleteTeam(team)'</td>
             </tr>
         </table>
