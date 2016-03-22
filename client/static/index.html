@@ -143,11 +143,13 @@
 
             $scope.addAssignment = function() {
                 // add to the array
-                console.log('new', $scope.assignPlayer, $scope.assignTeam);
-                for (var player in $scope.players) {
-                    console.log("player =", player );
-                    if(player.name == $scope.playerName){
-                        player.teamAssigned = $scope.assignTeam;
+                console.log("players =", $scope.players);
+                console.log('update', $scope.assignPlayer.name, $scope.assignTeam.teamName);
+                for (var key in $scope.players) {
+                    // console.log("$scope.player =", $scope.players[key]);
+                    console.log("$scope.player.name =", $scope.players[key].name);
+                    if($scope.players[key].name == $scope.assignPlayer.name){
+                        $scope.players[key].teamAssigned = $scope.assignTeam.teamName;
                     }
                 }
                 console.log("players =", $scope.players );
