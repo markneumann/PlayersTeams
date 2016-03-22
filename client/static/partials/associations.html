@@ -9,9 +9,9 @@
         </select>
         <select ng-model='assignTeam' ng-options="team.teamName for team in teams">
         </select>
-        <input type='submit' ng-click='addAssignment()' style="float: right">
+        <input type='submit' ng-click='addAssignment()'Ó style="float: right">
     </form>
-        <table width="800">
+        <table>
             <tr><th>Name</th><th>Team</th><th>Actions</th></tr>
             <tr ng-repeat="player in players" ng-class-odd="'d1'" ng-class-even="'d2'">
                 <td>{{player.name}}</td><td>{{player.teamAssigned}}</td>

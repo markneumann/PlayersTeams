@@ -4,7 +4,7 @@
         Name: <input type='text' ng-model='newTeam.teamName'>
         <input type='submit' value='Add Team' ng-click='addTeam()' style="float: right">
     </form>
-        <table width="800">
+        <table>
             <tr><th>Team Name</th><th>Actions</th></tr>
             <tr ng-repeat="team in teams" ng-class-odd="'d1'" ng-class-even="'d2'">
                 <td>{{team.teamName}}</td>
