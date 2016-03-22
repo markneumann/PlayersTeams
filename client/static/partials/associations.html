@@ -1,8 +1,15 @@
 <div ng-controller='Associations' id='theBox'>
     <h3>Associations Controller</h3>
-    <form>
+    <!-- <form>
         <input type='text' ng-model='assignPlayer.name'> <input type='text' ng-model='assignTeam.teamName'>
         <input type='submit' value='Assign Player to Team' ng-click='addAssignment()' style="float: right">
+    </form> -->
+    <form>
+        <select ng-model='assignPlayer' ng-options="player.name for player in players">
+        </select>
+        <select ng-model='assignTeam' ng-options="team.teamName for team in teams">
+        </select>
+        <input type='submit' ng-click='addAssignment()' style="float: right">
     </form>
         <table width="800">
             <tr><th>Name</th><th>Team</th><th>Actions</th></tr>
